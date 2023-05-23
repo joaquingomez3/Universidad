@@ -1,22 +1,35 @@
 
 package Control;
 
-import java.awt.List;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.Alumno;
 import modelo.Inscripcion;
-
+import modelo.Materia;
 
 
 public class InscripcionData {
+    private Connection con;
+    private MateriaData matData= new MateriaData();
+    private AlumnoData aluData = new AlumnoData();
+    
+    public InscripcionData(){
+        con= Conexion.getConexion();
+    }
     
     public List<Inscripcion> obtenerInscripciones(){
-        List<Inscripcion> cursadas = new ArrayList<>();
-          
+        List<Inscripcion> cursadas = new ArrayList<>();    
+            
         try {
-            String sql = "SELECT * FROM inscripcion;";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String query = "SELECT * FROM inscripcion;";
+            PreparedStatement ps;
+            ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             Inscripcion insc;
             

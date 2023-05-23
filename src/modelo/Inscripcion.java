@@ -40,19 +40,19 @@ public class Inscripcion {
         this.nota = nota;
     }
 
-    public Alumno getAlumno() {
+    public Alumno getIdAlumno() {
         return alumno;
     }
 
-    public void setAlumno(Alumno alumno) {
+    public void setIdAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
 
-    public Materia getMateria() {
+    public Materia getIdMateria() {
         return materia;
     }
 
-    public void setMateria(Materia materia) {
+    public void setIdMateria(Materia materia) {
         this.materia = materia;
     }
 
