@@ -40,20 +40,20 @@ public class Inscripcion {
         this.nota = nota;
     }
 
-    public Alumno getIdAlumno() {
-        return alumno;
+    public int getIdAlumno() {
+        return alumno.getIdAlumno();
     }
 
-    public void setIdAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public void setIdAlumno(int idAlumno) {
+        this.alumno.setIdAlumno(idAlumno);
     }
 
-    public Materia getIdMateria() {
-        return materia;
+    public int getIdMateria() {
+        return materia.getIdMateria();
     }
 
-    public void setIdMateria(Materia materia) {
-        this.materia = materia;
+    public void setIdMateria(int idMateria) {
+        this.materia.setIdMateria(idMateria);
     }
 
     @Override

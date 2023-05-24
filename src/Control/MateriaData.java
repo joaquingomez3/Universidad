@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Materia;
@@ -86,4 +87,30 @@ public class MateriaData {
         }
         return null;
     }  
+     
+     public void eliminarMateria(int idMateria){
+        Materia mat= null;
+        try {
+            String sql= "UPDATE materia SET estado=? WHERE id_materia=? ";
+            
+            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setBoolean(1, mat.isEstado());
+            ps.setInt(2, mat.getIdMateria());
+            ps.executeUpdate();
+            
+            ps.close();
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+     
+     public List<Materia> listarMaterias(){
+        ///////
+        return null;
+        
+    }
 }    

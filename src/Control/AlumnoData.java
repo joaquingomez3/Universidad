@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Alumno;
@@ -59,7 +60,7 @@ public class AlumnoData {
             
             ps.close();
             
-    } catch (SQLException ex) {
+            } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -93,6 +94,61 @@ public class AlumnoData {
         }
         return null;
     }    
+    
+    public Alumno buscarAlumnoPorDni(int dni){
+        Alumno alu= null;
+       String query = "SELECT nombre, apellido, fechaNacimiento, estado FROM alumno WHERE dni=?";
+        PreparedStatement ps;
+        try{
+            ps=con.prepareStatement (query);
+            ps.setInt(1, dni);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()){
+                alu=new Alumno();                
+                alu.setDni(rs.getInt("dni"));
+                alu.setNombre(rs.getString("nombre"));
+                alu.setApellido(rs.getString("apellido"));
+                alu.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                alu.setEstado(rs.getBoolean("Activo"));
+                
+                }else
+                    System.out.println("Alumno inexistente");
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return null;
+    } 
+    
+    public void eliminarAlumno(int idAlumno){
+        Alumno alu= null;
+        try {
+            String sql= "UPDATE alumno SET estado=? WHERE id_alumno=? ";
+            
+            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setBoolean(1, alu.isEstado());
+            ps.setInt(2, alu.getIdAlumno());
+            ps.executeUpdate();
+            
+            ps.close();
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+    
+    public List<Alumno> listarAlumnos(){
+        ///////
+        return null;
+        
+    }
+        
+    
 
 
 }
