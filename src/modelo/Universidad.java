@@ -2,20 +2,35 @@
 package modelo;
 
 import Control.AlumnoData;
+import Control.InscripcionData;
+import Control.MateriaData;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Universidad {
     
         public static void main(String[] args) {
         
-        Alumno alu = new Alumno(8543221, "Juan Bautista","Alberdi",LocalDate.of(1810, 8, 29),true);
+        List<Alumno> al = new ArrayList<>();
         AlumnoData ad = new AlumnoData();
-        ad.guardarAlumno(alu);
+        al = ad.listarAlumnos();
+        System.out.println(al);
         
-//        Alumno alu = new Alumno(14, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
-//        AlumnoData ad = new AlumnoData();
-//        ad.actualizarAlumno(alu);
+        //List<Inscripcion> ins = new ArrayList<>();
+        //InscripcionData insc = new InscripcionData();
+        //ins = insc.obtenerInscripciones();
+        //System.out.println(ins);
+        
+        List<Materia> ma = new ArrayList<>();
+        MateriaData mate = new MateriaData();
+        ma = mate.listarMaterias();
+        System.out.println(ma);
+        
+       // Alumno alu = new Alumno(1, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
+       AlumnoData ads = new AlumnoData();
+        ads.buscarAlumno(1);
     }
 }
     

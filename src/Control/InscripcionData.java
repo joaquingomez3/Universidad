@@ -55,18 +55,17 @@ public class InscripcionData {
             PreparedStatement ps;
             ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            Inscripcion insc;
+            
             
             while(rs.next()){
-                insc = new Inscripcion();
-                insc.setIdInscripcion(rs.getInt("idInscripto"));
-                
-                Alumno a = aluData.buscarAlumno(rs.getInt("idAlumno"));
-                insc.setIdAlumno(a.getIdAlumno());
-                
-                Materia m = matData.buscarMateria(rs.getInt("idMateria"));
+                Inscripcion insc = new Inscripcion();
+                insc.setIdInscripcion(rs.getInt("id_inscripto"));
+                insc.setNota(rs.getInt("nota"));
+                Alumno a = aluData.buscarAlumno(rs.getInt("id_alumno"));
+                insc.setIdAlumno(a.getIdAlumno());               
+                Materia m = matData.buscarMateria(rs.getInt("id_materia"));
                 insc.setIdMateria(m.getIdMateria());
-                insc.setNota(rs.getDouble("nota"));
+                
 
                 cursadas.add(insc);
             }      

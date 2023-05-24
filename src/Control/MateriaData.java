@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Materia;
 
 public class MateriaData {
@@ -109,8 +111,30 @@ public class MateriaData {
     }
      
      public List<Materia> listarMaterias(){
-        ///////
-        return null;
+         List<Materia> materias = new ArrayList<>();    
+            
+        try {
+            String query = "SELECT * FROM materia";
+            PreparedStatement ps;
+            ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            
+            while(rs.next()){
+                
+                Materia mat = new Materia();
+                mat.setIdMateria(rs.getInt("id_materia"));               
+                mat.setNombre(rs.getString("nombre"));
+                mat.setAnio(rs.getInt("anio"));
+                mat.setEstado(true);
+                materias.add(mat);
+                
+            }      
+            ps.close();
+        }catch (SQLException ex) {
+            JOptionPane.showInternalMessageDialog(null, "Error Materias "+ex.getMessage());
+        }
+        return materias;
         
     }
 }    
