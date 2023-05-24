@@ -77,6 +77,11 @@ public class InscripcionData {
         return cursadas;
     }
     
+    public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno){
+        return null;
+        
+    }
+    
     public void borrarInscripcionMateriaAlumno(int id_alumno,int id_materia){
         
         String sql = "DELETE FROM inscripcion WHERE id_alumno = ? AND id_materia = ? ";
@@ -147,6 +152,11 @@ public class InscripcionData {
       public List<Materia> obtenerMateriasCursadas(int id_materia){
         return null;
       //// 1hora 1min
+      }
+      
+      public List<Alumno> obtenerAlumnosXMateria(int id_materia){
+        return null;
+          
       }
      
 }
