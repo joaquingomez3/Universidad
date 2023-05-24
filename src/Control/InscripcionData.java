@@ -77,7 +77,35 @@ public class InscripcionData {
     }
     
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno){
-        return null;
+        List<Inscripcion> cursadas =  new ArrayList<>();
+        
+        try{
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno=?;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+           
+            
+            while(rs.next()){
+                Inscripcion inscripcion = new Inscripcion();
+                inscripcion.setIdInscripcion(rs.getInt("idInscripto"));
+                
+                Alumno a = aluData.buscarAlumno(rs.getInt("idAlumno"));
+                inscripcion.setAlumno(a);
+                
+                Materia m = matData.buscarMateria(rs.getInt("idMateria"));
+                inscripcion.setMateria(m);
+                inscripcion.setNota(rs.getDouble("nota"));
+
+                cursadas.add(inscripcion);
+            }      
+            ps.close();
+        }catch (SQLException ex) {
+            JOptionPane.showInternalMessageDialog(null, "Error al acceder a Inscripcion "+ex.getMessage());
+                   
+        }
+        
+        return cursadas;
         
     }
     
@@ -137,6 +165,7 @@ public class InscripcionData {
                 materia = new Materia();
                 materia.setIdMateria(resultSet.getInt("idMateria"));
                 materia.setNombre(resultSet.getString("nombre"));
+                materia.setAnio(resultSet.getInt("año"));
                 materias.add(materia);                               
         }
             ps.close();            
@@ -149,10 +178,33 @@ public class InscripcionData {
   }
      
       public List<Materia> obtenerMateriasCursadas(int id_materia){
-        return null;
-      //// 1hora 1min
+        List<Materia> materias = new ArrayList<Materia>();
+        
+        try {
+            String sql = "SELECT inscripcion.idmateria, nombre, año FROM inscripcion," + 
+                    "materia WHERE inscripcion.idMateria = materia.idMateria\n" +
+                    "AND inscripcion.idAlumno=?;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_materia);
+            ResultSet rs = ps.executeQuery();
+            Materia materia;
+            
+            while(rs.next()){
+                materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("año"));
+                materias.add(materia);                               
+        }
+            ps.close();            
+            
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener inscripciones");
+        }     
+        return materias;
       }
       
+     //faltaria el metodo obtenerAlumnosXMateria
       public List<Alumno> obtenerAlumnosXMateria(int id_materia){
         return null;
           

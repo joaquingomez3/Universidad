@@ -60,6 +60,14 @@ public class Inscripcion {
     public String toString() {
         return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", nota=" + nota + ", alumno=" + alumno + ", materia=" + materia + '}';
     }
+
+    public void setAlumno(Alumno a) {
+        this.alumno = a;
+    }
+
+    public void setMateria(Materia m) {
+        this.materia = m;
+    }
     
     
 }
