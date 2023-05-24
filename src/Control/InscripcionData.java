@@ -117,4 +117,36 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al actualizar");
             }
             }
+     
+     public List<Materia> obtenerMateriasNOCursadas(int id_materia){
+        List<Materia> materias = new ArrayList<Materia>();
+        
+        try {
+            String sql = "SELECT FROM materia WHERE estado = 1 AND idMateria not in" +
+                    "(SELECT idMateria FROM inscripcion WHERE idAlumno= ?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_materia);
+            ResultSet resultSet = ps.executeQuery();
+            Materia materia;
+            
+            while(resultSet.next()){
+                materia = new Materia();
+                materia.setIdMateria(resultSet.getInt("idMateria"));
+                materia.setNombre(resultSet.getString("nombre"));
+                materias.add(materia);                               
+        }
+            ps.close();            
+            
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
+        }     
+        return null;
+       
+  }
+     
+      public List<Materia> obtenerMateriasCursadas(int id_materia){
+        return null;
+      //// 1hora 1min
+      }
+     
 }
