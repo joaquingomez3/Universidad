@@ -70,33 +70,36 @@ public class AlumnoData {
 
     }
     
-    public Alumno buscarAlumno(int idAlumno){
-       
-       String query = "SELECT dni, nombre, apellido, fechaNacimiento, estado FROM alumno WHERE id_alumno=?";
-        PreparedStatement ps;
-        try{
-            ps=con.prepareStatement (query);
-            ps.setInt(1, idAlumno);
-            
+     public Alumno buscarAlumno(int id) {
+        Alumno alumno = null;
+        String sql = "SELECT  dni, apellido, nombre, fechaNacimiento FROM alumno WHERE id_alumno = ? AND estado = 1";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,id );
             ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()){
-                Alumno alu=new Alumno();                
-                alu.setIdAlumno( idAlumno );
-                alu.setDni(rs.getInt("dni"));
-                alu.setNombre(rs.getString("nombre"));
-                alu.setApellido(rs.getString("apellido"));
-                alu.setFechaNac(rs.getDate("fechaNac").toLocalDate());
-                alu.setEstado(rs.getBoolean("Activo"));
-                
-                }else
-                    System.out.println("Alumno inexistente");
-                    
+
+            if (rs.next()) {
+                alumno=new Alumno();
+                alumno.setIdAlumno(id);
+                alumno.setDni(rs.getInt("dni"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setEstado(true);
+               
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el alumno");
+            }
+            JOptionPane.showMessageDialog(null, "Alumno encontrado");
+            ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno "+ex.getMessage());
         }
-        return null;
-    }    
+
+        return alumno;
+    } 
     
     public Alumno buscarAlumnoPorDni(int dni){
         Alumno alu= null;

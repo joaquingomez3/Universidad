@@ -64,31 +64,34 @@ public class MateriaData {
 
     }
      
-     public Materia buscarMateria(int idMateria){
-        Materia mat= null;
-       String query = "SELECT id_materia, nombre, año, estado FROM materia WHERE id_materia=?";
-        PreparedStatement ps;
-        try{
-            ps=con.prepareStatement (query);
-            ps.setInt(1, idMateria);
-            
+     public Materia buscarMateria(int id) {
+        Materia materia = null;
+        String sql = "SELECT  nombre, anio FROM materia WHERE id_materia = ? AND estado = 1";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,id );
             ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()){
-                mat=new Materia();                
-                mat.setIdMateria( idMateria );               
-                mat.setNombre(rs.getString("nombre"));
-                mat.setAnio(rs.getInt("anio"));               
-                mat.setEstado(rs.getBoolean("Activo"));
-                
-                }else
-                    System.out.println("Materia inexistente");
-                    
+
+            if (rs.next()) {
+                materia=new Materia();
+                materia.setIdMateria(id);
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
+                materia.setEstado(true);
+               
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el alumno");
+            }
+            JOptionPane.showMessageDialog(null, "Materia encontrada");
+            ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno "+ex.getMessage());
         }
-        return null;
-    }  
+
+        return materia;
+    } 
      
      public void eliminarMateria(int idMateria){
         Materia mat= null;

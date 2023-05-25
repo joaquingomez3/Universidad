@@ -18,10 +18,10 @@ public class Universidad {
         al = ad.listarAlumnos();
         System.out.println(al);
         
-        //List<Inscripcion> ins = new ArrayList<>();
-        //InscripcionData insc = new InscripcionData();
-        //ins = insc.obtenerInscripciones();
-        //System.out.println(ins);
+        List<Inscripcion> ins = new ArrayList<>();
+        InscripcionData insc = new InscripcionData();
+        ins = insc.obtenerInscripciones();
+        System.out.println(ins);
         
         List<Materia> ma = new ArrayList<>();
         MateriaData mate = new MateriaData();
@@ -29,8 +29,11 @@ public class Universidad {
         System.out.println(ma);
         
        // Alumno alu = new Alumno(1, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
-       //AlumnoData ads = new AlumnoData();
-        //ads.buscarAlumno(1);
+       AlumnoData ads = new AlumnoData();
+       ads.buscarAlumno(2);
+       
+       MateriaData matData = new MateriaData();
+       matData.buscarMateria(1);
     }
 }
     

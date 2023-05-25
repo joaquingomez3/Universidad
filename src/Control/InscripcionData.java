@@ -90,10 +90,10 @@ public class InscripcionData {
                 Inscripcion inscripcion = new Inscripcion();
                 inscripcion.setIdInscripcion(rs.getInt("idInscripto"));
                 
-                Alumno a = aluData.buscarAlumno(rs.getInt("idAlumno"));
+                Alumno a = aluData.buscarAlumno(rs.getInt("id_alumno"));
                 inscripcion.setAlumno(a);
                 
-                Materia m = matData.buscarMateria(rs.getInt("idMateria"));
+                Materia m = matData.buscarMateria(rs.getInt("id_materia"));
                 inscripcion.setMateria(m);
                 inscripcion.setNota(rs.getDouble("nota"));
 
