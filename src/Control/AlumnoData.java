@@ -71,7 +71,7 @@ public class AlumnoData {
     }
     
     public Alumno buscarAlumno(int idAlumno){
-        Alumno alu= null;
+       
        String query = "SELECT dni, nombre, apellido, fechaNacimiento, estado FROM alumno WHERE id_alumno=?";
         PreparedStatement ps;
         try{
@@ -81,7 +81,7 @@ public class AlumnoData {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()){
-                alu=new Alumno();                
+                Alumno alu=new Alumno();                
                 alu.setIdAlumno( idAlumno );
                 alu.setDni(rs.getInt("dni"));
                 alu.setNombre(rs.getString("nombre"));
