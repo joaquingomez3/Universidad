@@ -163,8 +163,8 @@ public class AlumnoData {
                 alu.setDni(rs.getInt("dni"));
                 alu.setApellido(rs.getString("apellido"));
                 alu.setNombre(rs.getString("nombre"));
-                alu.setFechaNac(LocalDate.MIN);
-                alu.setEstado(true);
+                alu.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                alu.setEstado(rs.getBoolean("estado"));
                 alumnos.add(alu);
                 
             }      

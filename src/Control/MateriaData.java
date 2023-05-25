@@ -110,7 +110,7 @@ public class MateriaData {
 
     }
      
-     //Faltaria listarMaterias
+     
      public List<Materia> listarMaterias(){
          List<Materia> materias = new ArrayList<>();    
             
@@ -127,8 +127,10 @@ public class MateriaData {
                 mat.setIdMateria(rs.getInt("id_materia"));               
                 mat.setNombre(rs.getString("nombre"));
                 mat.setAnio(rs.getInt("anio"));
-                mat.setEstado(true);
+                mat.setEstado(rs.getBoolean("estado"));
                 materias.add(mat);
+                
+                
                 
             }      
             ps.close();

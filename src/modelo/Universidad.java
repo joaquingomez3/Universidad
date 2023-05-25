@@ -29,8 +29,8 @@ public class Universidad {
         System.out.println(ma);
         
        // Alumno alu = new Alumno(1, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
-       AlumnoData ads = new AlumnoData();
-        ads.buscarAlumno(1);
+       //AlumnoData ads = new AlumnoData();
+        //ads.buscarAlumno(1);
     }
 }
     
