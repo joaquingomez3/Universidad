@@ -71,18 +71,18 @@ public class AlumnoData {
 
     }
     
-     public Alumno buscarAlumno(int id) {
+     public Alumno buscarAlumno(int id_alumno) {
         Alumno alumno = null;
         String sql = "SELECT  dni, apellido, nombre, fechaNacimiento FROM alumno WHERE id_alumno = ? AND estado = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1,id );
+            ps.setInt(1,id_alumno );
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 alumno=new Alumno();
-                alumno.setIdAlumno(id);
+                alumno.setIdAlumno(id_alumno);
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
@@ -129,56 +129,52 @@ public class AlumnoData {
         return null;
     } 
     
-    public void eliminarAlumno(int idAlumno){
-        Alumno alu= null;
-        try {
-            String sql= "UPDATE alumno SET estado=? WHERE id_alumno=? ";
-            
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            ps.setBoolean(1, alu.isEstado());
-            ps.setInt(2, alu.getIdAlumno());
-            ps.executeUpdate();
-            
-            ps.close();
-            
-            } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-    }
-    
-  
-    public List<Alumno> listarAlumnos(){
-          List<Alumno> alumnos = new ArrayList<>();    
-            
-        try {
-            String query = "SELECT * FROM alumno";
-            PreparedStatement ps;
-            ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            
-            
-            while(rs.next()){
-                
-                Alumno alu = new Alumno();
-                alu.setIdAlumno(rs.getInt("id_alumno"));
-                alu.setDni(rs.getInt("dni"));
-                alu.setApellido(rs.getString("apellido"));
-                alu.setNombre(rs.getString("nombre"));
-                alu.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-                alu.setEstado(rs.getBoolean("estado"));
-                alumnos.add(alu);
-                
-            }      
-            ps.close();
-        }catch (SQLException ex) {
-            JOptionPane.showInternalMessageDialog(null, "Error Alumno "+ex.getMessage());
-        }
-        return alumnos;
+    public void eliminarAlumno(int id_alumno) {
+    try {
+        String sql = "UPDATE alumno SET estado = 0 WHERE id_alumno = ?;";
         
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, id_alumno);
+        ps.executeUpdate();
+        
+        ps.close();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
+    
+
+    public List<Alumno> listarAlumnos(){
+              List<Alumno> alumnos = new ArrayList<>();    
+
+            try {
+                String query = "SELECT * FROM alumno";
+                PreparedStatement ps;
+                ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+
+
+                while(rs.next()){
+
+                    Alumno alu = new Alumno();
+                    alu.setIdAlumno(rs.getInt("id_alumno"));
+                    alu.setDni(rs.getInt("dni"));
+                    alu.setApellido(rs.getString("apellido"));
+                    alu.setNombre(rs.getString("nombre"));
+                    alu.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                    alu.setEstado(rs.getBoolean("estado"));
+                    alumnos.add(alu);
+
+                }      
+                ps.close();
+            }catch (SQLException ex) {
+                JOptionPane.showInternalMessageDialog(null, "Error Alumno "+ex.getMessage());
+            }
+            return alumnos;
+
+        }
         
     
 

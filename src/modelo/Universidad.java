@@ -28,13 +28,22 @@ public class Universidad {
         ma = mate.listarMaterias();
         System.out.println(ma);
         
-       // Alumno alu = new Alumno(1, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
+       //Alumno alu = new Alumno(1, "Bernarda","Quiroga", LocalDate.of(2000, 02, 23),true);
        AlumnoData ads = new AlumnoData();
        ads.buscarAlumno(2);
        
        MateriaData matData = new MateriaData();
        matData.buscarMateria(1);
        
+       AlumnoData alu = new AlumnoData();
+       alu.eliminarAlumno(3);
+       
+       MateriaData mat = new MateriaData();
+       mat.eliminarMateria(5);
+       
+       
+       MateriaData mat = new MateriaData();
+       mat.buscarMateria(6);
        
     }
 }
