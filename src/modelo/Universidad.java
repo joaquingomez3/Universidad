@@ -34,6 +34,8 @@ public class Universidad {
        
        MateriaData matData = new MateriaData();
        matData.buscarMateria(1);
+       
+       
     }
 }
     
