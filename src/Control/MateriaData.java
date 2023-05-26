@@ -34,12 +34,14 @@ public class MateriaData {
             
             if(rs.next()){
                 materia.setIdMateria(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Materia guardada.");
             }else
-                System.out.println("El alumno no se pudo guardar");
+                System.out.println("La materia no se pudo guardar");
         
              ps.close();
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "La materia no se pudo guardar.");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -110,8 +112,7 @@ public class MateriaData {
     }
 
 
-    }
-     
+    }     
      
      public List<Materia> listarMaterias(){
          List<Materia> materias = new ArrayList<>();    
@@ -142,4 +143,6 @@ public class MateriaData {
         return materias;
         
     }
+     
+     
 }    

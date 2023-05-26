@@ -25,12 +25,12 @@ public class AlumnoData {
     
     public void guardarAlumno(Alumno alumno){
         try {
-            String sql= "INSERT INTO alumno (dni, nombre, apellido, fechaNacimiento, estado) values(?,?,?,?,?)";
+            String sql= "INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) values(?,?,?,?,?)";
             
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,alumno.getDni());
-            ps.setString(2, alumno.getNombre());
+            ps.setInt(1,alumno.getDni());            
             ps.setString(3, alumno.getApellido());
+            ps.setString(2, alumno.getNombre());
             ps.setDate(4, Date.valueOf( alumno.getFechaNac()));
             ps.setBoolean(5, alumno.isEstado());
             ps.executeUpdate();
@@ -39,12 +39,14 @@ public class AlumnoData {
             
             if(rs.next()){
                 alumno.setIdAlumno(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Alumno guardado.");
             }else
                 System.out.println("El alumno no se pudo guardar");
-        
+                
              ps.close();
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "El alumno no se pudo guardar");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -142,9 +144,7 @@ public class AlumnoData {
     } catch (SQLException ex) {
         Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
     }
-}
-
-    
+}    
 
     public List<Alumno> listarAlumnos(){
               List<Alumno> alumnos = new ArrayList<>();    
@@ -174,8 +174,7 @@ public class AlumnoData {
             }
             return alumnos;
 
-        }
-        
+        }      
     
 
 
