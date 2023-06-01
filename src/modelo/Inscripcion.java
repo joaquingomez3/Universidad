@@ -71,9 +71,18 @@ public class Inscripcion {
         return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", nota=" + nota + ", alumno=" + alumno + ", materia=" + materia + '}';
     }
 
+    public Alumno getAlumno() {
+        return alumno;
+    }
+    
     public void setAlumno(Alumno a) {
         this.alumno = a;
     }
+
+    public Materia getMateria() {
+        return materia;
+    }   
+    
 
     public void setMateria(Materia m) {
         this.materia = m;
