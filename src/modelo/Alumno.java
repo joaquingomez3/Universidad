@@ -82,11 +82,12 @@ public class Alumno {
     public void setDni(int dni) {
         this.dni = dni;
     }
-    
+
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac + ", estado=" + estado + ", dni=" + dni + '}';
+        return  idAlumno + " , " + nombre + " , " + apellido ;
     }
+    
     
 }
 
