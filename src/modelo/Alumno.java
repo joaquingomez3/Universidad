@@ -4,7 +4,7 @@ package modelo;
 import java.time.LocalDate;
 
 public class Alumno {
-    private int idAlumno;
+    private int id_alumno;
     private int dni;
     private String nombre;
     private String apellido;
@@ -12,8 +12,8 @@ public class Alumno {
     private boolean estado;
     private String toString;
 
-    public Alumno(int idAlumno, int dni, String nombre, String apellido, LocalDate fechaNac, boolean estado){
-        this.idAlumno = idAlumno;
+    public Alumno(int id_alumno, int dni, String nombre, String apellido, LocalDate fechaNac, boolean estado){
+        this.id_alumno = id_alumno;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -51,11 +51,11 @@ public class Alumno {
     }
 
     public int getIdAlumno() {
-        return idAlumno;
+        return id_alumno;
     }
 
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
+    public void setIdAlumno(int id_alumno) {
+        this.id_alumno = id_alumno;
     }
 
     public LocalDate getFechaNac() {
@@ -85,7 +85,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return  idAlumno + " , " + nombre + " , " + apellido ;
+        return  id_alumno + " , " + nombre + " , " + apellido ;
     }
     
     

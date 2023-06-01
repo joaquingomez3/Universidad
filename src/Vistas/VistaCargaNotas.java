@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vistas;
 
-/**
- *
- * @author pc
- */
-public class VistaCargaNotas extends javax.swing.JInternalFrame {
+import Control.AlumnoData;
+import Control.InscripcionData;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Alumno;
+import modelo.Inscripcion;
+import modelo.Materia;
 
-    /**
-     * Creates new form VistaCargaNotas
-     */
+public class VistaCargaNotas extends javax.swing.JInternalFrame {
+    private InscripcionData inscData=new InscripcionData();
+    private AlumnoData aData=new AlumnoData();
+    private DefaultTableModel modelo=new DefaultTableModel();
+
     public VistaCargaNotas() {
         initComponents();
+        cargarAlumnos();
+        armarCabecera();
     }
 
     /**
@@ -29,9 +32,9 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
 
         jLabelCargaDeNotas = new javax.swing.JLabel();
         jLabelAlumno = new javax.swing.JLabel();
-        jComboBoxAlumnos = new javax.swing.JComboBox<>();
+        jcbAlumnos = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlumno = new javax.swing.JTable();
+        jtNotas = new javax.swing.JTable();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
@@ -40,7 +43,13 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
 
         jLabelAlumno.setText("ALUMNO:");
 
-        jTableAlumno.setModel(new javax.swing.table.DefaultTableModel(
+        jcbAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnosActionPerformed(evt);
+            }
+        });
+
+        jtNotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,7 +60,7 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTableAlumno);
+        jScrollPane1.setViewportView(jtNotas);
 
         jButtonGuardar.setText("Guardar");
 
@@ -70,7 +79,7 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                         .addGap(88, 88, 88)
                         .addComponent(jLabelAlumno)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 48, Short.MAX_VALUE)
@@ -89,7 +98,7 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAlumno)
-                    .addComponent(jComboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -102,14 +111,55 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
+        // TODO add your handling code here:
+        llenarTabla();
+    }//GEN-LAST:event_jcbAlumnosActionPerformed
+    private void cargarAlumnos() {
+        List<Alumno> alumnos=aData.listarAlumnos();
+        for(Alumno alu:alumnos){
+            jcbAlumnos.addItem(alu);
+        }
+        
+    }
+    
+    private void armarCabecera() {
+        ArrayList<Object> titulos=new ArrayList<>();
+        titulos.add("Codigo");
+        titulos.add("Nombre");
+        titulos.add("Nota");
+        for(Object tit:titulos){
+        
+            modelo.addColumn(tit);
+        }
+        jtNotas.setModel(modelo);
+        
+    }
+    
+    private void llenarTabla() {
+    // Obtener el alumno seleccionado del JComboBox
+    Alumno alumnoSeleccionado=(Alumno)jcbAlumnos.getSelectedItem();{
+
+    // Limpiar el modelo de la tabla
+    modelo.setRowCount(0);
+
+    List<Materia> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
+            for(Materia m:lista){
+            
+                modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAnio()});
+        }
+    }
+}
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JComboBox<String> jComboBoxAlumnos;
     private javax.swing.JLabel jLabelAlumno;
     private javax.swing.JLabel jLabelCargaDeNotas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAlumno;
+    private javax.swing.JComboBox<Alumno> jcbAlumnos;
+    private javax.swing.JTable jtNotas;
     // End of variables declaration//GEN-END:variables
 }
